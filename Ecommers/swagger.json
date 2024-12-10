@@ -1,0 +1,110 @@
+{
+    "swagger":"2.0",
+    "info":{
+        "version":"1.0.0",
+        "description":"API for E-Commerce Application",
+        "title":"E-Commerce application"
+    },
+    "host":"localhost:3000",
+    "securityDefinitions":{
+        "JWT":{
+            "in":"header",
+            "name":"Authorization",
+            "type":"apiKey"
+        }
+    },
+    "paths":{
+        "/api/products":{
+            "get":{
+                "tags":["products"],
+                "summary":"Get product",
+                "description":"Get all products",
+                "security":[{"JWT":{}}],
+                "responses":{
+                    "200":{
+                        "description":"ok"
+                    },
+                    "400":{
+                        "description":"Unauthorized"
+                    }
+                }
+            }
+        },
+
+
+        "/api/user/signin":{
+            "post":{
+                "tags":["users"],
+                "summary":"Login",
+                "description":"user login to get token",
+                "parameters":[{
+                    "in":"body",
+                    "name":"body",
+                    "description":"user creds",
+                    "required": true,
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "email":{"type":"string"},
+                            "password":{"type":"string"}
+                        },
+                        "required": ["email", "password"]
+                    }
+                }],
+                "responses":{
+                    "200":{
+                        "description":"ok"
+                    },
+                    "400":{
+                        "description":"Invalid cred"
+                    }
+                }
+               
+            }
+        },
+
+        "api/products/rate":{
+            "get":{
+                "summary":"Rate a product",
+                "description":"Allows a user to rate a product using query parameters",
+                "parameters":[
+                    {
+                        "name":"userId",
+                        "in":"query",
+                        "description":"ID of the user rating the product",
+                        "required":true
+                    },
+                    {
+                        "name":"productId",
+                        "in":"query",
+                        "description":"ID of the product being rated",
+                        "required":true
+                    },
+                    {
+                        "name":"rating",
+                        "in":"query",
+                        "description":"Rating given to the product (1 to 5 scale)",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Rating successfully recorded",
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "message":{
+                                    "type":"string",
+                                    "example":"Rating submited successfully."
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Invalid cred"
+                    }
+                }
+            }
+        }
+    }
+}

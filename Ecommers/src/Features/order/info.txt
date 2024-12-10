@@ -1,0 +1,4 @@
+1-get the cart item of user and calculate the total amount .
+2-create a record for order.
+3-reduce the stock(product quantity).
+4-clear the cart.
